@@ -1,0 +1,97 @@
+---
+openapi: 3.0.2
+info:
+  title: Inventory API
+  version: 1.0.0
+  description: Inventory API for the Cloud Native Workshop
+servers:
+- url: http://localhost:8080/api
+  description: ""
+paths:
+  /inventory:
+    get:
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+              examples:
+                AllItems:
+                  value:
+                  - itemId: "329299"
+                    quantity: 35
+                  - itemId: "329199"
+                    quantity: 12
+                  - itemId: "165613"
+                    quantity: 45
+                  - itemId: "165614"
+                    quantity: 87
+                  - itemId: "165954"
+                    quantity: 43
+                  - itemId: "444434"
+                    quantity: 32
+                  - itemId: "444435"
+                    quantity: 53
+          description: Should return an arry of InventoryItems
+      summary: Get all InventoryItems
+  /inventory/{itemId}:
+    get:
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryItem'
+              examples:
+                OneItem:
+                  value:
+                    itemId: "329299"
+                    quantity: 35
+          description: Should return the item for the id provided
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                NotFoundError:
+                  value:
+                    code: "404"
+                    message: Item 53 was not found
+          description: Item not found
+      summary: Get one InventoryItem
+    parameters:
+    - name: itemId
+      schema:
+        type: string
+      in: path
+      required: true
+components:
+  schemas:
+    InventoryItem:
+      title: Root Type for InventoryItem
+      description: The root of the InventoryItem type's schema.
+      type: object
+      properties:
+        itemId:
+          type: string
+        quantity:
+          format: int32
+          type: integer
+      example:
+        itemId: "329299"
+        quantity: 35
+    GenericError:
+      title: Root Type for GenericError
+      description: Generic Error Object.
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      example:
+        code: "404"
+        message: Item 53 was not found

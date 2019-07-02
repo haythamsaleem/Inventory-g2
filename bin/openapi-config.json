@@ -1,0 +1,11 @@
+{
+    "basePackage" : "com.redhat.cloudnative.inventory",
+    "configPackage" : "com.redhat.cloudnative.inventory.config",
+    "invokerPackage" : "com.redhat.cloudnative.inventory.invoker",
+    "apiPackage" : "com.redhat.cloudnative.inventory.api",
+    "modelPackage" : "com.redhat.cloudnative.inventory.model",
+    "artifactId" : "inventory",
+    "artifactVersion" : "0.0.1-SNAPSHOT",
+    "serializableModel" : true
+}
+EOF
